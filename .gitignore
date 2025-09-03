@@ -1,0 +1,8 @@
+﻿client/node_modules/
+EMS_BackEnd/node_modules/
+**/.env
+**/coverage/
+**/dist/
+**/build/
+*.log
+node_modules

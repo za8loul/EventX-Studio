@@ -1,0 +1,664 @@
+{
+	"info": {
+		"_postman_id": "ems-seat-allocation-api-tests",
+		"name": "EMS Seat Allocation & Events API Tests",
+		"description": "Comprehensive test collection for Event Management System seat allocation and events services",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "12345678"
+	},
+	"item": [
+		{
+			"name": "🔐 Authentication",
+			"item": [
+				{
+					"name": "User Signup",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstName\": \"John\",\n    \"lastName\": \"Doe\",\n    \"email\": \"john.doe@test.com\",\n    \"password\": \"User123!\",\n    \"gender\": \"male\",\n    \"age\": 25,\n    \"role\": \"user\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/users/signup",
+							"host": ["{{base_url}}"],
+							"path": ["users", "signup"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Admin Signup",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstName\": \"Admin\",\n    \"lastName\": \"User\",\n    \"email\": \"admin@test.com\",\n    \"password\": \"Admin123!\",\n    \"gender\": \"male\",\n    \"age\": 30,\n    \"role\": \"admin\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/users/signup",
+							"host": ["{{base_url}}"],
+							"path": ["users", "signup"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User Login",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"john.doe@test.com\",\n    \"password\": \"User123!\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/users/login",
+							"host": ["{{base_url}}"],
+							"path": ["users", "login"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Admin Login",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"admin@test.com\",\n    \"password\": \"Admin123!\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/users/login",
+							"host": ["{{base_url}}"],
+							"path": ["users", "login"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User Profile",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{user_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/users/profile",
+							"host": ["{{base_url}}"],
+							"path": ["users", "profile"]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "🎭 Events Management",
+			"item": [
+				{
+					"name": "Get All Published Events (Public)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/events",
+							"host": ["{{base_url}}"],
+							"path": ["events"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Event by ID (Public)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/events/{{event_id}}",
+							"host": ["{{base_url}}"],
+							"path": ["events", "{{event_id}}"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Event (Admin Only)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}"
+							}
+						],
+						                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"title\": \"Test Concert 2024\",\n    \"description\": \"A fantastic test concert for seat allocation testing\",\n    \"date\": \"2025-12-31T20:00:00.000Z\",\n    \"location\": \"Test Arena, Test City\",\n    \"capacity\": 100,\n    \"price\": 50,\n    \"category\": \"concert\",\n    \"bookingDeadline\": \"2025-12-30T20:00:00.000Z\",\n    \"refundPolicy\": \"No refunds within 24 hours of event\",\n    \"seatingLayout\": {\n        \"type\": \"theater\",\n        \"rows\": 10,\n        \"seatsPerRow\": 10\n    }\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/events",
+							"host": ["{{base_url}}"],
+							"path": ["events"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Event (Admin Only)",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"Updated Test Concert 2024\",\n    \"description\": \"Updated description for the test concert\",\n    \"price\": 75\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/events/{{event_id}}",
+							"host": ["{{base_url}}"],
+							"path": ["events", "{{event_id}}"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Events (Admin Only)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/events/admin/all",
+							"host": ["{{base_url}}"],
+							"path": ["events", "admin", "all"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Event (Admin Only)",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/events/{{event_id}}",
+							"host": ["{{base_url}}"],
+							"path": ["events", "{{event_id}}"]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "💺 Seat Management",
+			"item": [
+				{
+					"name": "Generate Seats for Event (Admin Only)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"rows\": 10,\n    \"seatsPerRow\": 10,\n    \"basePrice\": 50,\n    \"category\": \"standard\",\n    \"features\": [\"near_stage\", \"center\"]\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/seats/event/{{event_id}}/generate",
+							"host": ["{{base_url}}"],
+							"path": ["seats", "event", "{{event_id}}", "generate"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Event Seats (Public)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/seats/event/{{event_id}}",
+							"host": ["{{base_url}}"],
+							"path": ["seats", "event", "{{event_id}}"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Individual Seat (Admin Only)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"rowNumber\": 1,\n    \"seatNumber\": 1,\n    \"basePrice\": 75,\n    \"category\": \"premium\",\n    \"features\": [\"near_stage\", \"center\"],\n    \"isAccessible\": false\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/seats/event/{{event_id}}",
+							"host": ["{{base_url}}"],
+							"path": ["seats", "event", "{{event_id}}"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Seat (Admin Only)",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"basePrice\": 100,\n    \"category\": \"vip\",\n    \"features\": [\"near_stage\", \"center\", \"aisle\"]\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/seats/{{seat_id}}",
+							"host": ["{{base_url}}"],
+							"path": ["seats", "{{seat_id}}"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Seat (Admin Only)",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/seats/{{seat_id}}",
+							"host": ["{{base_url}}"],
+							"path": ["seats", "{{seat_id}}"]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "🎫 Seat Selection & Booking",
+			"item": [
+				{
+					"name": "Select Seats (User)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{user_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"eventId\": \"{{event_id}}\",\n    \"selectedSeats\": [\n        {\n            \"seatId\": \"{{seat_id_1}}\"\n        },\n        {\n            \"seatId\": \"{{seat_id_2}}\"\n        }\n    ],\n    \"numberOfTickets\": 2\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/seats/select",
+							"host": ["{{base_url}}"],
+							"path": ["seats", "select"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Release Seats (User)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{user_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"eventId\": \"{{event_id}}\",\n    \"seatIds\": [\"{{seat_id_1}}\", \"{{seat_id_2}}\"]\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/seats/release",
+							"host": ["{{base_url}}"],
+							"path": ["seats", "release"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Book Event with Seats (User)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{user_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"numberOfTickets\": 2,\n    \"paymentMethod\": \"credit_card\",\n    \"specialRequests\": \"Please ensure seats are together\",\n    \"selectedSeats\": [\n        {\n            \"seatId\": \"{{seat_id_1}}\"\n        },\n        {\n            \"seatId\": \"{{seat_id_2}}\"\n        }\n    ]\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/events/{{event_id}}/book",
+							"host": ["{{base_url}}"],
+							"path": ["events", "{{event_id}}", "book"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Book Event without Seats (User)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{user_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"numberOfTickets\": 1,\n    \"paymentMethod\": \"debit_card\",\n    \"specialRequests\": \"No special requests\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/events/{{event_id}}/book",
+							"host": ["{{base_url}}"],
+							"path": ["events", "{{event_id}}", "book"]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "📋 Booking Management",
+			"item": [
+				{
+					"name": "Get My Bookings (User)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{user_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/events/my-bookings",
+							"host": ["{{base_url}}"],
+							"path": ["events", "my-bookings"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cancel Booking (User)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{user_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"reason\": \"Change of plans\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/events/{{event_id}}/cancel-booking",
+							"host": ["{{base_url}}"],
+							"path": ["events", "{{event_id}}", "cancel-booking"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Event Bookings (Admin Only)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{admin_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/events/admin/{{event_id}}/bookings",
+							"host": ["{{base_url}}"],
+							"path": ["events", "admin", "{{event_id}}", "bookings"]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "🧪 Test Scenarios",
+			"item": [
+				{
+					"name": "Complete Seat Allocation Flow",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/events",
+							"host": ["{{base_url}}"],
+							"path": ["events"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Concurrent Seat Selection Test",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{user_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"eventId\": \"{{event_id}}\",\n    \"selectedSeats\": [\n        {\n            \"seatId\": \"{{seat_id_1}}\"\n        }\n    ],\n    \"numberOfTickets\": 1\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/seats/select",
+							"host": ["{{base_url}}"],
+							"path": ["seats", "select"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Invalid Seat Selection Test",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{user_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"eventId\": \"invalid_event_id\",\n    \"selectedSeats\": [],\n    \"numberOfTickets\": 0\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/seats/select",
+							"host": ["{{base_url}}"],
+							"path": ["seats", "select"]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "test",
+			"script": {
+				"exec": [
+					"// Test script for successful responses",
+					"pm.test(\"Status code is 200 or 201\", function () {",
+					"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+					"});",
+					"",
+					"// Test for JSON response",
+					"pm.test(\"Response is JSON\", function () {",
+					"    pm.response.to.have.jsonBody();",
+					"});",
+					"",
+					"// Test for success message in response",
+					"pm.test(\"Response contains success message\", function () {",
+					"    const responseJson = pm.response.json();",
+					"    pm.expect(responseJson).to.have.property('message');",
+					"    pm.expect(responseJson.message).to.include('successfully');",
+					"});"
+				],
+				"type": "text/javascript"
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:3000",
+			"type": "string"
+		},
+		{
+			"key": "user_token",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "admin_token",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "event_id",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "seat_id_1",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "seat_id_2",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "seat_id",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
