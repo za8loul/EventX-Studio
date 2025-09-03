@@ -55,8 +55,19 @@
     @apply border-border;
   }
 
+  html {
+    overflow-x: hidden;
+  }
+
   body {
     @apply bg-background text-foreground;
     font-feature-settings: "rlig" 1, "calt" 1;
+    overflow-x: hidden;
+    max-width: 100vw;
+  }
+
+  #root {
+    overflow-x: hidden;
+    max-width: 100vw;
   }
 }
