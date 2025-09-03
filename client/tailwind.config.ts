@@ -1,11 +1,6 @@
 import type { Config } from 'tailwindcss'
 
 const config: Config = {
-  safelist: [
-    'bg-background',
-    'text-foreground',
-    'border-border',
-  ],
   content: [
     './index.html',
     './src/**/*.{js,jsx,ts,tsx}',
@@ -13,9 +8,6 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        'colors-black-10': 'var(--colors-black-10)',
-        'colors-black-100': 'var(--colors-black-100)',
-        'dark-grey': 'var(--dark-grey)',
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',
@@ -55,25 +47,9 @@ const config: Config = {
         md: 'calc(var(--radius) - 2px)',
         sm: 'calc(var(--radius) - 4px)',
       },
-      keyframes: {
-        'accordion-down': {
-          from: { height: '0' },
-          to: { height: 'var(--radix-accordion-content-height)' },
-        },
-        'accordion-up': {
-          from: { height: 'var(--radix-accordion-content-height)' },
-          to: { height: '0' },
-        },
-      },
-      animation: {
-        'accordion-down': 'accordion-down 0.2s ease-out',
-        'accordion-up': 'accordion-up 0.2s ease-out',
-      },
     },
-    container: { center: true, padding: '2rem', screens: { '2xl': '1400px' } },
   },
-  plugins: [require('tailwindcss-animate'), require('@tailwindcss/typography')],
-  darkMode: ['class'],
+  plugins: [],
 }
 
 export default config
