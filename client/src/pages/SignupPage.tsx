@@ -26,7 +26,8 @@ export function SignupPage() {
     setSubmitting(true);
     setError(null);
     try {
-      const res = await fetch("/api/users/signup", {
+      const baseUrl = import.meta.env.VITE_API_BASE_URL;
+      const res = await fetch(`${baseUrl}/users/signup`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
